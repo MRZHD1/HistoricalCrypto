@@ -6,7 +6,7 @@ import creategraph as cg
 import asyncio
 
 
-class Utility(commands.Cog):
+class Trade(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -17,7 +17,7 @@ class Utility(commands.Cog):
         money_2 = currency2.upper()
 
         r = requests.get(
-            f"https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={money_1}&market={money_2}&apikey=7YAORWV1EFS1JXTH&datatype=csv")
+            f"https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={money_1}&market={money_2}&apikey={apikey}datatype=csv")
 
         if r.text[0] == '{':
             await ctx.send('Inputs not found: Try using different values or switching the order!')
