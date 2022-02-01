@@ -1,8 +1,5 @@
 import plotly.graph_objs as go
 import csv
-import aiohttp
-import asyncio
-import math
 import numpy as np
 from sympy import *
 from sympy import poly
@@ -48,7 +45,6 @@ async def creategraph(cur1, cur2, day=None):
     coefficients.pop()
 
     for i in range(15, 0, -1):
-        print(i)
         if i > 1:
             g_func = poly(coefficients[i-1] * (x ** (i-1)))
             g_hfunc = poly(coefficients[i-1] * ((x+0.00001) ** (i-1)))
@@ -60,8 +56,6 @@ async def creategraph(cur1, cur2, day=None):
 
     # Final derivative, using the limit definition (with small values of h)
     derivative = (y_hfunc - y_func)/0.00001
-    print(y_func)
-    print(derivative)
 
     x_new = np.linspace(x_points[0], x_points[-1], 50)
     y_new = f(x_new)
@@ -106,11 +100,6 @@ async def creategraph(cur1, cur2, day=None):
     # Drawing graph and exporting it
     fig = go.Figure(data=data, layout=layout)
     fig.write_image("fig1.png")
-    print("Image created")
     if day is not None:
         print(raw_array[day])
         return derivative.subs(x, raw_array[day][0])
-
-
-# fig.show()
-print(asyncio.run(creategraph("BTC", "USD", 700)))
