@@ -5,12 +5,13 @@ from discord.ext import commands
 # Discord Setup
 intents = discord.Intents.default()
 intents.members = True
-apiToken = f"{DiscordApiToken}"
+discord_api = input("Input your discord bot API token here: \n")
+alpha_api = input("Input your alpha vantage api key here: \n")
 
 # Bot Setup
 bot = commands.Bot(command_prefix='.', intents=intents)
-cogs = ['Trade']
-bot.auth_users = [907839431640223774, 166262833745625088, 278478019394404353]
+bot.alpha_api = alpha_api
+cogs = ['trade']
 
 
 # Bot Body
@@ -18,12 +19,10 @@ bot.auth_users = [907839431640223774, 166262833745625088, 278478019394404353]
 @bot.event
 async def on_ready():  # When our project successfully connects to Discord
     print('The bot is connected')
-    debug_channel = await bot.fetch_channel(934259234743390250)
-    await debug_channel.send("Bot is running @everyone")
 
 
 if __name__ == "__main__":  # Loading other files
     for cog in cogs:
         bot.load_extension(cog)
 
-bot.run(apiToken)
+bot.run(discord_api)
