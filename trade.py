@@ -3,10 +3,9 @@ import discord
 import requests
 from discord.ext import commands
 import creategraph as cg
-import asyncio
 
 
-class Trade(commands.Cog):
+class trade(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -17,7 +16,7 @@ class Trade(commands.Cog):
         money_2 = currency2.upper()
 
         r = requests.get(
-            f"https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={money_1}&market={money_2}&apikey={apikey}datatype=csv")
+            f"https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol={money_1}&market={money_2}&apikey={self.bot.alpha_api}&datatype=csv")
 
         if r.text[0] == '{':
             await ctx.send('Inputs not found: Try using different values or switching the order!')
@@ -53,4 +52,4 @@ class Trade(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Trade(bot))
+    bot.add_cog(trade(bot))
